@@ -39,8 +39,9 @@ export function TodoPage() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const handleLogout = () => {
-    auth.signoutRedirect(); // Đăng xuất, chuyển tới IdP
+  const handleLogout = async () => {
+    auth.signoutRedirect(); 
+
   };
 
   return (

@@ -1,28 +1,26 @@
 // src/App.tsx
 import { Routes, Route } from "react-router-dom";
 
-import { ProtectedRoute } from "./components/ProtectedRoute";
 import { CallbackPage } from "./pages/CallbackPage";
 import { TodoPage } from "./pages/TodoPage";
 import { HomePage } from "./pages/HomePage";
+import SilentRenew from "./pages/SilentRenew";
+import LogoutRedirect from "./pages/LogoutRedirect";
 
 function App() {
   return (
     <Routes>
-      {/* Trang callback được dùng khi IdP redirect về */}
-      {/* <Route path="/callback" element={<CallbackPage />} /> */}
+      <Route path="/oidc-login" element={<CallbackPage />} />
+      <Route path="/oidc-logout" element={<LogoutRedirect />} />
+      <Route path="/silent-renew" element={<SilentRenew />} />
 
-      {/* Trang chính (bảo vệ) */}
       <Route
         path="/todo"
         element={
-          <ProtectedRoute>
             <TodoPage />
-          </ProtectedRoute>
         }
       />
 
-      {/* Trang home hoặc mặc định */}
       <Route path="/" element={<HomePage />} />
     </Routes>
   );

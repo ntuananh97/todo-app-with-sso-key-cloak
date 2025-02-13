@@ -1,17 +1,28 @@
-// src/pages/CallbackPage.tsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAuth } from "react-oidc-context";
+import { Navigate, useNavigate } from "react-router-dom";
 
-export function CallbackPage() {
+// export const CallbackPage = () => {
+//   const auth = useAuth();
+
+//   if (!auth.isLoading && auth.isAuthenticated) {
+//     return <Navigate to="/todo" replace />;
+//   }
+//   return null;
+// };
+
+export const CallbackPage = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Gọi hàm này để OIDC client parse code/token từ URL
-    // rồi lưu lại phiên đăng nhập
-    auth.().catch((error) => {
-      console.error("Error handling redirect callback:", error);
-    });
-  }, [auth]);
+    // Khi auth đã xử lý xong và user được xác thực
+    if (!auth.isLoading && auth.isAuthenticated) {
+      // Điều hướng sang /todo thay vì hiển thị "callback"
+      
+      navigate("/todo", { replace: true });
+    }
+  }, [auth.isLoading, auth.isAuthenticated, navigate]);
 
-  return <div>Đang xử lý đăng nhập...</div>;
-}
+  return <div>Loading...</div>;
+};
